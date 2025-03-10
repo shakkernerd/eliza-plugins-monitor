@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs"
 import * as dotenv from "dotenv"
-import { GitHubCollaborator, GitHubRepo } from "./types"
+import { GitHubCollaborator, GitHubIssue, GitHubRepo } from "./types"
 
 dotenv.config()
 
@@ -97,6 +97,40 @@ async function fetchAllCollaborators(repoName: string): Promise<GitHubCollaborat
 	return allCollabs
 }
 
+/**
+ * Fetch all open issues (excluding pull requests) for a given repository.
+ */
+async function fetchOpenIssues(repoName: string): Promise<GitHubIssue[]> {
+	let page = 1
+	let allIssues: GitHubIssue[] = []
+
+	while (true) {
+		const url = `https://api.github.com/repos/${ORG_NAME}/${repoName}/issues?state=open&per_page=${PER_PAGE}&page=${page}`
+		const resp = await fetch(url, {
+			headers: {
+				Authorization: `token ${GITHUB_TOKEN}`,
+				Accept: "application/vnd.github.v3+json",
+			},
+		})
+
+		if (!resp.ok) {
+			throw new Error(`Failed to fetch issues for ${repoName}: ${resp.status}`)
+		}
+
+		const issues = (await resp.json()) as GitHubIssue[]
+		const filteredIssues = issues.filter((issue) => !issue.pull_request)
+		allIssues = allIssues.concat(filteredIssues)
+
+		if (issues.length < PER_PAGE) {
+			break // No more issues
+		}
+
+		page++
+	}
+
+	return allIssues
+}
+
 async function main() {
 	try {
 		// Fetch all public repos in the org
@@ -104,9 +138,9 @@ async function main() {
 		console.log(`Fetched ${allRepos.length} public repos from ${ORG_NAME}.\n`)
 
 		// Prepare CSV lines (headers first)
-		const csvRows: string[] = ["Repository Name,Has Maintainers?,Current Maintainers,Repository URL"]
+		const csvRows: string[] = ["Repository Name,Has Maintainers?,Current Maintainers,Open Issues,Repository URL"]
 
-		// For each repo, fetch collaborators, filter to maintainers
+		// For each repo, fetch collaborators and open issues
 		console.log("Fetching all collaborators...")
 		for (const repo of allRepos) {
 			const repoName = repo.name
@@ -117,7 +151,11 @@ async function main() {
 			const maintainers = collaborators.filter((c) => c.permissions && c.permissions.maintain === true)
 			const maintainersList = maintainers.map((m) => m.login).join("; ")
 
-			const row = `"${repoName}","${maintainers.length > 0}","${maintainersList}","${repo.html_url}"`
+			// Fetch open issues
+			const issues = await fetchOpenIssues(repoName)
+			const issueCount = issues.length
+
+			const row = `"${repoName}","${maintainers.length > 0}","${maintainersList}","${issueCount}","${repo.html_url}"`
 			csvRows.push(row)
 		}
 
