@@ -14,3 +14,11 @@ export interface GitHubCollaborator {
 		pull?: boolean
 	}
 }
+
+export interface GitHubIssue {
+	url: string
+	user: {
+		login: string
+	}
+	pull_request: any
+}
