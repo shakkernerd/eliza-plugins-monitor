@@ -78,7 +78,6 @@ Repository Name,Has Maintainers?,Current Maintainers,Repository URL
 "plugin-tts","false","","https://github.com/elizaos-plugins/plugin-tts"
 "client-auto","false","","https://github.com/elizaos-plugins/client-auto"
 "client-discord","false","","https://github.com/elizaos-plugins/client-discord"
-".github","false","","https://github.com/elizaos-plugins/.github"
 "plugin-speech-tts","false","","https://github.com/elizaos-plugins/plugin-speech-tts"
 "core","false","","https://github.com/elizaos-plugins/core"
 "plugin-aws-s3","false","","https://github.com/elizaos-plugins/plugin-aws-s3"

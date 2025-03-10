@@ -38,7 +38,9 @@ async function fetchAllPublicRepos(): Promise<GitHubRepo[]> {
 			break // No more repos
 		}
 
-		allRepos = allRepos.concat(repos)
+		// Filter out .github
+		const filteredRepos = repos.filter((repo) => repo.name !== ".github")
+		allRepos = allRepos.concat(filteredRepos)
 
 		// If we got less than PER_PAGE, it's the final page
 		if (repos.length < PER_PAGE) {
