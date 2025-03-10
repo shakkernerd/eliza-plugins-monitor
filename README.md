@@ -40,9 +40,9 @@ This executes the script using `ts-node` to fetch repos and generate `maintainer
 
 After execution, the script generates a **CSV file** with the following format:
 
-| Repository Name | Has Maintainers? | Current Maintainers | Repository URL |
-| --------------- | ---------------- | ------------------- | -------------- |
-| repo-1          | true             | name(s)             | https://       |
+| Repository Name | Has Maintainers? | Current Maintainers | Open Issues | Repository URL |
+| --------------- | ---------------- | ------------------- | ----------- | -------------- |
+| repo-1          | true             | name(s)             | 1           | https://       |
 
 `...`
 
