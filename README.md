@@ -1,18 +1,51 @@
-# eliza-plugins-monitor
+# **Eliza Plugins Monitor**
 
-A new TypeScript project.
+A **TypeScript-based tool** for monitoring repositories in the [elizaOS-plugins](https://github.com/elizaOS-plugins) organization.  
+It **automates maintainer tracking**, making it easier to identify and manage maintainers for each repository.
 
-## Getting Started
+## **How to Use**
 
-1. `cd eliza-plugins-monitor`
-2. `pnpm run build` to compile into `dist/`
-3. `pnpm run start` to run
+### **1. Clone the repository**
 
-## Scripts
+```sh
+git clone https://github.com/shakkernerd/eliza-plugins-monitor.git
+cd eliza-plugins-monitor
+```
 
-- `pnpm run build`: TypeScript -> JavaScript
-- `pnpm run start`: Run via ts-node
+### **2. Install dependencies**
 
-## License
+```sh
+pnpm install
+```
 
-MIT
+### **3. Set up GitHub authentication**
+
+Create a `.env` file in the project root and add your **GitHub Personal Access Token** (classic):
+
+```sh
+GITHUB_TOKEN=your_github_personal_access_token
+```
+
+> Your token should have **repo read permissions** to fetch repository and collaborator details.
+
+### **4. Run the monitor**
+
+```sh
+pnpm run start
+```
+
+This executes the script using `ts-node` to fetch repos and generate `maintainers.csv`.
+
+## **Output**
+
+After execution, the script generates a **CSV file** with the following format:
+
+| Repository Name | Has Maintainers? | Current Maintainers | Repository URL |
+| --------------- | ---------------- | ------------------- | -------------- |
+| repo-1          | true             | name(s)             | https://       |
+
+`...`
+
+## **License**
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
