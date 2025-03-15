@@ -77,7 +77,7 @@ Repository Name,Has Maintainers?,Current Maintainers,Open Issues,Repository URL
 "plugin-thirdweb","false","","0","https://github.com/elizaos-plugins/plugin-thirdweb"
 "plugin-tts","false","","0","https://github.com/elizaos-plugins/plugin-tts"
 "client-auto","false","","0","https://github.com/elizaos-plugins/client-auto"
-"client-discord","false","","0","https://github.com/elizaos-plugins/client-discord"
+"client-discord","false","","1","https://github.com/elizaos-plugins/client-discord"
 "plugin-speech-tts","false","","0","https://github.com/elizaos-plugins/plugin-speech-tts"
 "core","false","","0","https://github.com/elizaos-plugins/core"
 "plugin-aws-s3","false","","0","https://github.com/elizaos-plugins/plugin-aws-s3"
